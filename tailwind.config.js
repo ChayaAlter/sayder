@@ -5,7 +5,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Heebo', 'system-ui', 'sans-serif'],
-        display: ['"Frank Ruhl Libre"', 'Heebo', 'serif']
+        display: ['Heebo', 'system-ui', 'sans-serif']
       },
       colors: {
         parchment: {

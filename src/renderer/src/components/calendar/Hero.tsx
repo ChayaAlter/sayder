@@ -5,46 +5,33 @@ interface HeroProps {
   day: CalendarDay
 }
 
-const GREGORIAN_FULL_MONTHS_HE = [
-  'בינואר',
-  'בפברואר',
-  'במרץ',
-  'באפריל',
-  'במאי',
-  'ביוני',
-  'ביולי',
-  'באוגוסט',
-  'בספטמבר',
-  'באוקטובר',
-  'בנובמבר',
-  'בדצמבר'
-]
-
-function formatGregorian(d: Date): string {
-  return `${d.getDate()} ${GREGORIAN_FULL_MONTHS_HE[d.getMonth()]} ${d.getFullYear()}`
+function formatGregorianCompact(d: Date): string {
+  // Compact numeric form keeps the Gregorian date visually marginal.
+  return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`
 }
 
 export function Hero({ day }: HeroProps) {
   const headlineDate = formatHebrewDate(day.hdate)
   const dayOfWeekLine = formatHebrewDateWithDayOfWeek(day.hdate).split(',')[0]
-  const gregorianLine = formatGregorian(day.gregorianDate)
+  const gregorianLine = formatGregorianCompact(day.gregorianDate)
 
   return (
-    <div className="bg-royal-700 text-white rounded-2xl px-8 py-6 shadow-card">
-      <div className="text-center space-y-1">
-        <h1 className="font-display font-bold text-3xl md:text-4xl tracking-wide">
+    <div className="bg-royal-700 text-white rounded-2xl px-6 py-2 shadow-card shrink-0">
+      <div className="text-center">
+        <h1 className="font-display font-bold text-xl md:text-2xl tracking-wide leading-tight">
           {headlineDate}
         </h1>
-        <p className="text-base md:text-lg text-white/80">
-          {dayOfWeekLine}
-          <span className="mx-2 opacity-60">•</span>
-          {gregorianLine}
+        <p className="text-xs text-white/75 mt-0.5">
+          <span>{dayOfWeekLine}</span>
+          {day.parsha && (
+            <>
+              <span className="mx-2 opacity-50">•</span>
+              <span className="text-gold-400 font-medium">{day.parsha}</span>
+            </>
+          )}
+          <span className="mx-2 opacity-40">·</span>
+          <span className="text-white/45 text-[11px]">{gregorianLine}</span>
         </p>
-        {day.parsha && (
-          <p className="text-sm md:text-base text-gold-400 font-medium pt-1">
-            פרשת {day.parsha.replace(/^פרשת\s+/, '')}
-          </p>
-        )}
       </div>
     </div>
   )

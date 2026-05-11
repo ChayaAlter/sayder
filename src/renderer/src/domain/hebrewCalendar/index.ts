@@ -1,7 +1,8 @@
 import { HDate, HebrewCalendar, Locale, flags, months } from '@hebcal/core'
 
-// Hebrew locale is applied per-call by passing { locale: 'he' } to
-// HebrewCalendar.calendar() and Locale.gettext(id, 'he').
+// Hebrew locale is applied per-call by passing { locale: 'he-x-NoNikud' } to
+// HebrewCalendar.calendar() and Locale.gettext(id, 'he-x-NoNikud') so that
+// names render without nikud (vowel marks).
 
 export type EventCategory =
   | 'rosh-chodesh'
@@ -124,7 +125,7 @@ export function getMonthName(hebrewYear: number, hebrewMonth: number): string {
 export function getMonthNameHebrew(hebrewYear: number, hebrewMonth: number): string {
   const englishName = HDate.getMonthName(hebrewMonth, hebrewYear)
   // hebcal exposes Hebrew translations via Locale.gettext
-  return Locale.gettext(englishName, 'he')
+  return Locale.gettext(englishName, 'he-x-NoNikud')
 }
 
 export function formatHebrewYear(hebrewYear: number): string {
@@ -221,7 +222,7 @@ export function getMonth(hebrewYear: number, hebrewMonth: number): HebrewMonth {
     sedrot: true,
     noHolidays: false,
     candlelighting: false,
-    locale: 'he'
+    locale: 'he-x-NoNikud'
   })
 
   const eventsByDay = new Map<number, CalendarEvent[]>()
@@ -229,7 +230,7 @@ export function getMonth(hebrewYear: number, hebrewMonth: number): HebrewMonth {
     const day = ev.getDate().getDate()
     const list = eventsByDay.get(day) ?? []
     list.push({
-      name: ev.render('he'),
+      name: ev.render('he-x-NoNikud'),
       category: categorizeEvent(ev.getFlags())
     })
     eventsByDay.set(day, list)
@@ -298,8 +299,8 @@ export function getNextShabbatParsha(fromHDate: HDate): string | undefined {
     end: new HDate(endGreg),
     sedrot: true,
     noHolidays: true,
-    locale: 'he'
+    locale: 'he-x-NoNikud'
   })
   const parsha = events.find((e) => e.getFlags() & flags.PARSHA_HASHAVUA)
-  return parsha?.render('he')
+  return parsha?.render('he-x-NoNikud')
 }

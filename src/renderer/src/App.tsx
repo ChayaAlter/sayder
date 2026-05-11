@@ -58,27 +58,25 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen p-6 md:p-8 max-w-[1200px] mx-auto">
-      <div className="space-y-6">
-        {effectiveSelectedDay && <Hero day={effectiveSelectedDay} />}
+    <div className="h-screen overflow-hidden p-3 md:p-4 max-w-[1200px] mx-auto flex flex-col gap-3">
+      {effectiveSelectedDay && <Hero day={effectiveSelectedDay} />}
 
-        <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
-          <div className="card p-5 md:p-6 space-y-4">
-            <MonthNavigator
-              month={month}
-              onPrevious={handlePrevious}
-              onNext={handleNext}
-              onToday={handleToday}
-            />
-            <MonthGrid
-              month={month}
-              selectedDay={effectiveSelectedDay}
-              onSelectDay={handleSelect}
-            />
-          </div>
-
-          {effectiveSelectedDay && <DayDetail day={effectiveSelectedDay} />}
+      <div className="grid gap-3 md:grid-cols-[1fr_300px] flex-1 min-h-0">
+        <div className="card p-3 md:p-4 flex flex-col gap-3 min-h-0 overflow-hidden">
+          <MonthNavigator
+            month={month}
+            onPrevious={handlePrevious}
+            onNext={handleNext}
+            onToday={handleToday}
+          />
+          <MonthGrid
+            month={month}
+            selectedDay={effectiveSelectedDay}
+            onSelectDay={handleSelect}
+          />
         </div>
+
+        {effectiveSelectedDay && <DayDetail day={effectiveSelectedDay} />}
       </div>
     </div>
   )

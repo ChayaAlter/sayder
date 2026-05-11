@@ -52,27 +52,27 @@ export function DayDetail({ day }: DayDetailProps) {
   const upcomingParsha = day.isShabbat ? undefined : getNextShabbatParsha(day.hdate)
 
   return (
-    <div className="card p-6 space-y-5">
+    <div className="card p-4 space-y-4 overflow-y-auto min-h-0">
       <div>
         <div className="text-xs text-ink-500 uppercase tracking-wider">פרטי היום</div>
-        <h2 className="font-display font-bold text-xl text-ink-900 mt-1">
+        <h2 className="font-display font-bold text-lg text-ink-900 mt-0.5">
           {DAY_OF_WEEK_HE[day.dayOfWeek]}
         </h2>
-        <p className="text-ink-700 text-sm mt-0.5">{formatGregorian(day.gregorianDate)}</p>
+        <p className="text-ink-500/70 text-[11px] mt-0.5">{formatGregorian(day.gregorianDate)}</p>
       </div>
 
       {(day.events.length > 0 || day.parsha) && (
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <div className="text-xs text-ink-500 uppercase tracking-wider">אירועי היום</div>
-          <ul className="space-y-1.5">
+          <ul className="space-y-1">
             {day.parsha && (
               <li className="flex items-baseline gap-2">
                 <span className="text-gold-600 text-sm">●</span>
-                <span className="text-ink-900 text-sm font-medium">פרשת {day.parsha.replace(/^פרשת\s+/, '')}</span>
+                <span className="text-ink-900 text-sm font-medium">{day.parsha}</span>
               </li>
             )}
             {day.events.map((ev, idx) => (
-              <li key={idx} className="flex items-baseline gap-2">
+              <li key={idx} className="flex items-baseline gap-2 flex-wrap">
                 <span className="text-royal-600 text-sm">●</span>
                 <span className="text-ink-900 text-sm">{ev.name}</span>
                 <span className="text-ink-500 text-xs">({CATEGORY_LABELS[ev.category] ?? 'אירוע'})</span>
@@ -85,7 +85,7 @@ export function DayDetail({ day }: DayDetailProps) {
       {upcomingParsha && (
         <div className="space-y-1 pt-3 border-t border-parchment-200">
           <div className="text-xs text-ink-500 uppercase tracking-wider">פרשת השבוע הקרובה</div>
-          <p className="text-ink-900 text-sm font-medium">פרשת {upcomingParsha.replace(/^פרשת\s+/, '')}</p>
+          <p className="text-ink-900 text-sm font-medium">{upcomingParsha}</p>
         </div>
       )}
 
