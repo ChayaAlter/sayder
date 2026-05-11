@@ -65,12 +65,6 @@ export function DayDetail({ day }: DayDetailProps) {
         <div className="space-y-1.5">
           <div className="text-xs text-ink-500 uppercase tracking-wider">אירועי היום</div>
           <ul className="space-y-1">
-            {day.parsha && (
-              <li className="flex items-baseline gap-2">
-                <span className="text-gold-600 text-sm">●</span>
-                <span className="text-ink-900 text-sm font-medium">{day.parsha}</span>
-              </li>
-            )}
             {day.events.map((ev, idx) => (
               <li key={idx} className="flex items-baseline gap-2 flex-wrap">
                 <span className="text-royal-600 text-sm">●</span>
@@ -78,6 +72,13 @@ export function DayDetail({ day }: DayDetailProps) {
                 <span className="text-ink-500 text-xs">({CATEGORY_LABELS[ev.category] ?? 'אירוע'})</span>
               </li>
             ))}
+            {day.parsha && (
+              <li className="flex items-baseline gap-2 flex-wrap">
+                <span className="text-gold-600 text-sm">●</span>
+                <span className="text-ink-900 text-sm font-medium">{day.parsha}</span>
+                <span className="text-ink-500 text-xs">({CATEGORY_LABELS['parsha']})</span>
+              </li>
+            )}
           </ul>
         </div>
       )}

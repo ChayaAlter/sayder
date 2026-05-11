@@ -27,7 +27,7 @@ export function DayCell({ day, isSelected, onClick }: DayCellProps) {
 
   const primaryEvent = day.events[0]
   const eventColor = (() => {
-    if (isSelected) return 'text-white/90'
+    if (isSelected) return 'text-white/95'
     if (!primaryEvent) return ''
     switch (primaryEvent.category) {
       case 'yom-tov':
@@ -51,9 +51,12 @@ export function DayCell({ day, isSelected, onClick }: DayCellProps) {
   // Hebcal returns parsha events as "פרשת <name>". In tight cells the prefix
   // is redundant (every Shabbat cell would repeat it), so we drop it for the
   // cell display while keeping the full string for the hover title.
-  const fullEventLabel = primaryEvent ? primaryEvent.name : day.parsha ?? ''
-  const cellEventLabel = fullEventLabel.replace(/^פרשת\s+/, '')
+  const stripParshaPrefix = (s: string): string => s.replace(/^פרשת\s+/, '')
+  const eventLabel = primaryEvent?.name
+  const parshaLabel = day.parsha ? stripParshaPrefix(day.parsha) : undefined
+  const titleLabel = [primaryEvent?.name, day.parsha].filter(Boolean).join(' · ')
 
+  const parshaColor = isSelected ? 'text-gold-400' : 'text-gold-600'
   const gregorianClass = isSelected ? 'text-white/50' : 'text-ink-500/60'
 
   return (
@@ -73,12 +76,17 @@ export function DayCell({ day, isSelected, onClick }: DayCellProps) {
         </span>
       </div>
 
-      {cellEventLabel && (
+      {(eventLabel || parshaLabel) && (
         <div
-          className={`mt-0.5 text-[10px] leading-tight line-clamp-2 break-words ${eventColor} text-right`}
-          title={fullEventLabel}
+          className="mt-0.5 text-[10px] leading-tight text-right space-y-0.5 overflow-hidden"
+          title={titleLabel}
         >
-          {cellEventLabel}
+          {eventLabel && (
+            <div className={`line-clamp-2 break-words ${eventColor}`}>{eventLabel}</div>
+          )}
+          {parshaLabel && (
+            <div className={`line-clamp-1 break-words ${parshaColor}`}>{parshaLabel}</div>
+          )}
         </div>
       )}
     </button>
