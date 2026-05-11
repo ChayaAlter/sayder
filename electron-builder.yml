@@ -1,0 +1,39 @@
+appId: com.chayaalter.sayder
+productName: Sayder
+copyright: Copyright © 2026 Chaya Alter
+
+directories:
+  output: release
+  buildResources: build
+
+files:
+  - out/**/*
+  - package.json
+  - "!**/{.vscode,.idea,.git}/*"
+  - "!src/*"
+  - "!**/node_modules/*/{CHANGELOG.md,README.md,readme.md,readme.markdown}"
+  - "!**/node_modules/*/{*.md,test,tests,__tests__,*.test.js,*.spec.js}"
+  - "!{tsconfig.*,tailwind.config.js,postcss.config.js,electron.vite.config.ts,electron-builder.yml}"
+
+asar: true
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+    - target: portable
+      arch: [x64]
+  artifactName: ${productName}-${version}-${arch}.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: סיידר בעיתו
+  uninstallDisplayName: סיידר בעיתו
+  deleteAppDataOnUninstall: true
+
+portable:
+  artifactName: Sayder-Portable-${version}.${ext}

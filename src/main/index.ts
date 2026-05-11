@@ -7,12 +7,12 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 function createMainWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 1100,
-    height: 720,
+    height: 760,
     minWidth: 880,
     minHeight: 600,
     show: false,
     autoHideMenuBar: true,
-    title: 'לוח שנה תורנית',
+    title: 'סיידר בעיתו',
     backgroundColor: '#F5F0E8',
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
